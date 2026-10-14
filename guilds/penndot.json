@@ -1,0 +1,31 @@
+{
+  "name": "PennDOT Build Guild",
+  "description": "PennDOT Build Guild — a monthly community for developers and builders learning, sharing, and shipping with GitHub Copilot.",
+  "publicUrl": "https://ricardo-msft-se.github.io/PennDOTBuildGuild/",
+  "schedule": "Thursday · Every month",
+  "heroCopy": {
+    "intro": "A monthly forum for builders, engineers, and enthusiasts to ",
+    "emphasis": "learn, share, and ship with confidence",
+    "outro": " using GitHub Copilot."
+  },
+  "speakers": [
+    {
+      "name": "Kenedy Thorne",
+      "title": "Senior Solution Engineer",
+      "company": "Microsoft",
+      "image": "assets/kenedy-thorne.png"
+    },
+    {
+      "name": "Ricardo Wilkins",
+      "title": "Senior Solution Engineer",
+      "company": "Microsoft",
+      "image": "assets/ricardo-wilkins.png"
+    }
+  ],
+  "flyer": {
+    "image": "assets/build-guild-flyer.png",
+    "alt": "PennDOT Build Guild flyer announcing the first session topic TBD"
+  },
+  "sessionsFile": "content/penndot-sessions.html",
+  "notesFile": "content/penndot-notes.html"
+}

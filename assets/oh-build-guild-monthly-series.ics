@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//OHBuildGuild//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:oh-build-guild-monthly-series-2026@ohbuildguild
+DTSTAMP:20260811T201000Z
+DTSTART;TZID=America/New_York:20260811T143000
+DTEND;TZID=America/New_York:20260811T153000
+RRULE:FREQ=MONTHLY;BYDAY=TU;BYSETPOS=2;WKST=MO
+SUMMARY:OH | Build Guild Monthly series
+LOCATION:Microsoft Teams Meeting
+DESCRIPTION:OH Build Guild is a monthly community of practice for developers and enthusiasts learning, sharing, and building with GitHub Copilot. Join us for practical sessions, demos, and conversations focused on AI-enabled development workflows, prompt engineering, automation, and real-world adoption.\n\nMeeting frequency: Monthly on the 2nd Tuesday.\nTime: 2:30 PM to 3:30 PM EDT.\nWebsite: https://ricardo-msft-se.github.io/OHBuildGuild\nJoin link: https://teams.microsoft.com/l/meetup-join/19%3ameeting_NjgxZmJkZWUtOTc1My00NmFmLWEwMDAtNzNlZGNmNTdjZDEx%40thread.v2/0?context=%7b%22Tid%22%3a%2250f8fcc4-94d8-4f07-84eb-36ed57c7c8a2%22%2c%22Oid%22%3a%229761cbe8-9381-42af-8c94-21dadb166654%22%7d
+URL:https://ricardo-msft-se.github.io/OHBuildGuild
+ORGANIZER;CN=Ricardo Wilkins:mailto:Ricardo.Wilkins@microsoft.com
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
