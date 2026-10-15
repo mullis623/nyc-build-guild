@@ -22,6 +22,7 @@ test("NYC remains the default, with its session, notes, speakers, and assets", (
   assert.equal((html.match(/<article class="session-card"/g) || []).length, 1);
   assert.equal((html.match(/data-origin="guild" data-type="session"/g) || []).length, 1);
   assert.match(html, /Kenedy Thorne/);
+  assert.match(html, /Al Barnes/);
   assert.match(html, /Sebastian Kowalik/);
   assert.match(html, /Shaun Mullis/);
   assert.match(html, /Sundeep Hiranandaney/);
@@ -30,6 +31,7 @@ test("NYC remains the default, with its session, notes, speakers, and assets", (
   assert.match(html, /Microsoft Garage/);
   assert.doesNotMatch(html, /\{\{\w+\}\}/);
   assert.deepEqual(assets.sort(), [
+    "assets/al.barnes.jpg",
     "assets/build-guild-flyer.png",
     "assets/kenedy-thorne.png",
     "assets/sebastian.kowalik.jpg",
