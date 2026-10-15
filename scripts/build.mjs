@@ -51,7 +51,10 @@ export function renderSite(config, sourceRoot = root) {
     const company = escapeHtml(text(speaker.company, `speakers[${index}].company`));
     localFile(speaker.image, "assets", `speakers[${index}].image`, sourceRoot);
     const mark = speaker.company === "Microsoft"
-      ? '<span class="microsoft-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>' : "";
+      ? '<span class="microsoft-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>'
+      : speaker.company === "GitHub"
+        ? '<svg class="github-mark" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.64 0 8.13c0 3.59 2.29 6.64 5.47 7.71.4.08.55-.17.55-.39 0-.19-.01-.83-.01-1.51-2.01.38-2.53-.5-2.69-.96-.09-.23-.48-.96-.82-1.15-.28-.15-.68-.53-.01-.54.63-.01 1.08.59 1.23.83.72 1.22 1.87.88 2.33.67.07-.53.28-.88.51-1.08-1.78-.2-3.64-.9-3.64-4.01 0-.88.31-1.61.82-2.18-.08-.2-.36-1.03.08-2.15 0 0 .67-.22 2.2.83A7.4 7.4 0 0 1 8 3.93c.68 0 1.36.09 2 .27 1.53-1.05 2.2-.83 2.2-.83.44 1.12.16 1.95.08 2.15.51.57.82 1.3.82 2.18 0 3.12-1.87 3.81-3.65 4.01.29.25.54.74.54 1.51 0 1.09-.01 1.97-.01 2.24 0 .22.15.47.55.39A8.15 8.15 0 0 0 16 8.13C16 3.64 12.42 0 8 0Z"/></svg>'
+        : "";
     return `<div class="speaker"><span class="speaker-avatar"><img src="${escapeHtml(speaker.image)}" alt="" /></span><span><span class="speaker-name">${speakerName}</span><span class="speaker-title">${title}</span><span class="speaker-company">${mark}${company}</span></span></div>`;
   }).join("\n");
   let flyer = "";

@@ -29,6 +29,8 @@ test("NYC remains the default, with its session, notes, speakers, and assets", (
   assert.match(html, /id="october-26-notes"/);
   assert.match(html, /GitHub Copilot Build Day: Zero to Agents/);
   assert.match(html, /Microsoft Garage/);
+  assert.match(html, /\.speaker-row \{ display: grid; grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/);
+  assert.match(html, /@media \(max-width: 560px\)[\s\S]*?\.speaker-row \{ grid-template-columns: 1fr; \}/);
   assert.doesNotMatch(html, /\{\{\w+\}\}/);
   assert.deepEqual(assets.sort(), [
     "assets/al.barnes.jpg",
@@ -88,7 +90,10 @@ test("custom speakers, flyer, notes, and linked resources are selected and escap
   for (const file of ["speaker.png", "flyer.png", "slides.pdf"]) {
     writeFileSync(join(directory, "assets", file), "fixture");
   }
-  config.speakers = [{ name: "Guest <One>", title: "Builder", company: "Community", image: "assets/speaker.png" }];
+  config.speakers = [
+    { name: "Guest <One>", title: "Builder", company: "Community", image: "assets/speaker.png" },
+    { name: "Octo Speaker", title: "Developer Advocate", company: "GitHub", image: "assets/speaker.png" },
+  ];
   config.flyer = { image: "assets/flyer.png", alt: 'Guild "flyer"' };
   config.notesFile = "content/notes.html";
   writeFileSync(join(directory, "content", "notes.html"),
@@ -98,6 +103,8 @@ test("custom speakers, flyer, notes, and linked resources are selected and escap
   assert.match(html, /Guild &quot;flyer&quot;/);
   assert.match(html, /id="notes"/);
   assert.doesNotMatch(html, /<span class="microsoft-mark"/);
+  assert.match(html, /<svg class="github-mark"[^>]+aria-hidden="true">/);
+  assert.match(html, /<span class="speaker-company"><svg class="github-mark"[\s\S]*?GitHub<\/span>/);
   assert.deepEqual(assets.sort(), ["assets/flyer.png", "assets/slides.pdf", "assets/speaker.png"]);
 });
 

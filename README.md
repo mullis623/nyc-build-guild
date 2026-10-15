@@ -50,7 +50,8 @@ partially configured site.
 
 For each speaker, use an object with `name`, `title`, `company`, and `image`
 (for example, `"image": "assets/your-guild/speaker.png"`). Only Microsoft speakers
-receive the Microsoft mark. A flyer is an object with `image` and descriptive
+receive the Microsoft mark, and speakers whose company is `GitHub` receive the
+GitHub Octocat mark. A flyer is an object with `image` and descriptive
 `alt`. Put assets under `assets/`, use relative forward-slash URL paths in JSON
 and HTML, and do not use absolute paths, traversal segments, or remote image URLs.
 This keeps images working under GitHub Pages repository subpaths and offline.

@@ -152,8 +152,8 @@
       .hero-copy { max-width: 550px; color: var(--cp-text-muted); font-size: 1.15rem; }
       .hero-copy strong { color: var(--cp-text); }
       .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-      .speaker-row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 28px; }
-      .speaker { display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; gap: 9px; min-width: 150px; }
+      .speaker-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; width: 100%; margin-top: 28px; }
+      .speaker { display: grid; grid-template-columns: 42px minmax(0, 1fr); align-items: center; gap: 9px; min-width: 0; }
       .speaker-avatar {
         display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid var(--cp-link);
         border-radius: 50%; background: var(--cp-accent-soft); color: var(--cp-link); font-size: 0.78rem; font-weight: 800; overflow: hidden;
@@ -164,6 +164,7 @@
       .speaker-company { display: flex; align-items: center; gap: 4px; margin-top: 4px; color: var(--cp-text-soft); font-size: 0.62rem; line-height: 1; }
       .microsoft-mark { display: grid; grid-template-columns: repeat(2, 4px); gap: 1px; width: 9px; height: 9px; }
       .microsoft-mark i { display: block; width: 4px; height: 4px; background: var(--cp-link); }
+      .github-mark { width: 11px; height: 11px; flex: 0 0 auto; fill: var(--cp-link); }
       .hero-art { position: relative; min-height: 420px; display: grid; place-items: center; }
       .flyer-frame { width: min(100%, 390px); padding: 10px; border: 1px solid var(--cp-link); border-radius: 16px; background: var(--cp-panel); box-shadow: var(--cp-shadow); transform: rotate(2deg); backdrop-filter: blur(8px); }
       .flyer-frame img { display: block; width: 100%; height: auto; border-radius: 10px; }
@@ -243,6 +244,7 @@
       @media (max-width: 560px) {
         .shell { width: min(100% - 28px, 1160px); } .topline-inner, .nav, .section-heading, .footer-inner { align-items: flex-start; flex-direction: column; }
         .nav { gap: 16px; } .nav-actions { width: 100%; justify-content: space-between; } h1 { font-size: clamp(3.8rem, 20vw, 6rem); } .bot-card { inset: 20px 0 0 12px; }
+        .speaker-row { grid-template-columns: 1fr; }
       }
     </style>
   </head>
