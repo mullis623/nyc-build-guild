@@ -6,7 +6,7 @@ import test from "node:test";
 import { runInNewContext } from "node:vm";
 import { buildSite, renderSite, root } from "../scripts/build.mjs";
 
-const defaultConfig = JSON.parse(readFileSync(join(root, "guilds", "penndot.json"), "utf8"));
+const defaultConfig = JSON.parse(readFileSync(join(root, "guilds", "nyc.json"), "utf8"));
 
 function invitationParams(html) {
   const attribute = html.match(/href="(mailto:[^"]+)"/)[1];
@@ -16,25 +16,30 @@ function invitationParams(html) {
   return new URLSearchParams(url.slice(url.indexOf("?") + 1));
 }
 
-test("PennDOT remains the default, with all sessions, notes, speakers and assets", () => {
+test("NYC remains the default, with its session, notes, speakers, and assets", () => {
   const { html, assets } = renderSite(defaultConfig);
-  assert.match(html, /<title>PennDOT Build Guild \| GitHub Copilot<\/title>/);
-  assert.equal((html.match(/<article class="session-card"/g) || []).length, 12);
-  assert.equal((html.match(/data-origin="guild" data-type="session"/g) || []).length, 2);
+  assert.match(html, /<title>NYC Build Guild \| GitHub Copilot<\/title>/);
+  assert.equal((html.match(/<article class="session-card"/g) || []).length, 1);
+  assert.equal((html.match(/data-origin="guild" data-type="session"/g) || []).length, 1);
   assert.match(html, /Kenedy Thorne/);
-  assert.match(html, /Ricardo Wilkins/);
-  assert.match(html, /id="august-19-notes"/);
-  assert.match(html, /Compounding Errors/);
-  assert.match(html, /Microsoft Reactor/);
+  assert.match(html, /Sebastian Kowalik/);
+  assert.match(html, /Shaun Mullis/);
+  assert.match(html, /Sundeep Hiranandaney/);
+  assert.match(html, /id="october-26-notes"/);
+  assert.match(html, /GitHub Copilot Build Day: Zero to Agents/);
+  assert.match(html, /Microsoft Garage/);
   assert.doesNotMatch(html, /\{\{\w+\}\}/);
   assert.deepEqual(assets.sort(), [
-    "assets/build-guild-flyer.png", "assets/kenedy-thorne.png", "assets/ricardo-wilkins.png",
+    "assets/build-guild-flyer.png",
+    "assets/kenedy-thorne.png",
+    "assets/sebastian.kowalik.jpg",
+    "assets/shaun.mullis.jpg",
+    "assets/sundeep.hiranandaney.jpg",
   ]);
   const params = invitationParams(html);
   assert.equal(params.get("subject"), `Join us at ${defaultConfig.name}`);
   assert.ok(params.get("body").includes(defaultConfig.publicUrl));
   assert.ok(params.get("body").includes(defaultConfig.schedule));
-  assert.ok(!params.get("body").includes("second Tuesday"));
 });
 
 function fixture(t) {
@@ -58,7 +63,7 @@ function fixture(t) {
   return { directory, config };
 }
 
-test("another Guild replaces all PennDOT content without inheriting notes or assets", (t) => {
+test("another Guild replaces all NYC content without inheriting notes or assets", (t) => {
   const { directory, config } = fixture(t);
   writeFileSync(join(directory, "content", "sessions.html"),
     '<article class="session-card" data-origin="guild" data-type="workshop" data-date="2026-11-01T10:00" data-search="{{name}} workshop"><h3>{{name}} workshop</h3></article>');
@@ -66,7 +71,7 @@ test("another Guild replaces all PennDOT content without inheriting notes or ass
   assert.match(html, /Builders &amp; Friends &lt;Guild&gt; &quot;One&quot;/);
   assert.match(html, /Friday at 10:00 UTC/);
   assert.match(html, /hero hero-text-only/);
-  assert.doesNotMatch(html, /PennDOT|penndot|Kenedy|Ricardo|august-19|Microsoft Reactor/);
+  assert.doesNotMatch(html, /NYC Build Guild|Kenedy|Sebastian|Shaun|Sundeep|october-26|Microsoft Garage/);
   assert.doesNotMatch(html, /class="speaker-row"|class="flyer-frame"/);
   assert.deepEqual(assets, []);
   const params = invitationParams(html);
@@ -117,18 +122,18 @@ test("invalid config fails explicitly before publishing output", (t) => {
   assert.throws(() => renderSite(config, directory), /Unresolved template slot/);
 });
 
-test("build defaults to PennDOT and emits only index and referenced assets", (t) => {
+test("build defaults to NYC and emits only index and referenced assets", (t) => {
   const { directory } = fixture(t);
   cpSync(join(root, "content"), join(directory, "content"), { recursive: true });
   cpSync(join(root, "assets"), join(directory, "assets"), { recursive: true });
-  writeFileSync(join(directory, "guilds", "penndot.json"), JSON.stringify(defaultConfig));
+  writeFileSync(join(directory, "guilds", "nyc.json"), JSON.stringify(defaultConfig));
   const output = buildSite(undefined, directory);
-  assert.match(readFileSync(join(output, "index.html"), "utf8"), /PennDOT Build Guild/);
+  assert.match(readFileSync(join(output, "index.html"), "utf8"), /NYC Build Guild/);
   assert.ok(existsSync(join(output, "assets", "build-guild-flyer.png")));
   assert.ok(!existsSync(join(output, "guilds")));
   assert.ok(!existsSync(join(output, "content")));
   assert.ok(!existsSync(join(output, "assets", "oh-build-guild-monthly-series.ics")));
-  assert.throws(() => buildSite("../penndot", directory), /kebab-case/);
+  assert.throws(() => buildSite("../nyc", directory), /kebab-case/);
   assert.throws(() => buildSite("unknown", directory), /ENOENT/);
 });
 
@@ -179,17 +184,15 @@ function browser(html) {
 
 test("session sorting, origin/type filtering, search, empty state and theme still work", () => {
   const page = browser(renderSite(defaultConfig).html);
-  assert.deepEqual(page.grid.children.slice(0, 2).map((card) => card.dataset.date), ["2026-09-17T13:00", "2026-08-19T13:00"]);
-  const external = page.grid.children.slice(2).map((card) => card.dataset.date);
-  assert.deepEqual(external, [...external].sort());
+  assert.deepEqual(page.grid.children.map((card) => card.dataset.date), ["2026-10-26T09:00:00-04:00"]);
   page.filters[1].events.click();
-  assert.equal(page.grid.children.filter((card) => !card.hidden).length, 2);
-  page.filters[2].events.click();
-  assert.equal(page.grid.children.filter((card) => !card.hidden).length, 10);
-  page.filters[5].events.click();
   assert.equal(page.grid.children.filter((card) => !card.hidden).length, 1);
+  page.filters[2].events.click();
+  assert.equal(page.grid.children.filter((card) => !card.hidden).length, 0);
+  page.filters[5].events.click();
+  assert.equal(page.grid.children.filter((card) => !card.hidden).length, 0);
   page.filters[0].events.click();
-  page.search.value = "  CONTEXT  ";
+  page.search.value = "  AGENTS  ";
   page.search.events.input();
   assert.equal(page.grid.children.filter((card) => !card.hidden).length, 1);
   page.search.value = "no matching topic";
@@ -197,7 +200,7 @@ test("session sorting, origin/type filtering, search, empty state and theme stil
   assert.ok(page.empty.classes.has("show"));
   page.search.value = "";
   page.search.events.input();
-  assert.equal(page.grid.children.filter((card) => !card.hidden).length, 12);
+  assert.equal(page.grid.children.filter((card) => !card.hidden).length, 1);
   page.toggle.events.click();
   assert.equal(page.document.documentElement.dataset.theme, "dark");
   page.toggle.events.click();

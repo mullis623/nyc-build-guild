@@ -35,7 +35,7 @@ jobs:
 
       - name: Build selected Guild
         env:
-          BUILD_GUILD: ${{ vars.BUILD_GUILD || 'penndot' }}
+          BUILD_GUILD: ${{ vars.BUILD_GUILD || 'nyc' }}
         run: node scripts/build.mjs "$BUILD_GUILD"
 
       - name: Configure GitHub Pages

@@ -86,7 +86,7 @@ export function renderSite(config, sourceRoot = root) {
   return { html, assets };
 }
 
-export function buildSite(guild = "penndot", sourceRoot = root) {
+export function buildSite(guild = "nyc", sourceRoot = root) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(guild)) throw new Error("Guild ID must be lowercase kebab-case");
   const config = JSON.parse(readFileSync(join(sourceRoot, "guilds", `${guild}.json`), "utf8"));
   const { html, assets } = renderSite(config, sourceRoot);
@@ -105,5 +105,5 @@ export function buildSite(guild = "penndot", sourceRoot = root) {
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   if (process.argv.length > 3) throw new Error("Usage: node scripts/build.mjs [guild-id]");
   const output = buildSite(process.argv[2]);
-  console.log(`Built ${process.argv[2] || "penndot"} in ${output}`);
+  console.log(`Built ${process.argv[2] || "nyc"} in ${output}`);
 }

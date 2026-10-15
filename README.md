@@ -1,7 +1,7 @@
 # Build Guild site template
 
-A dependency-free static site for GitHub Copilot Build Guilds. **PennDOT is the
-default**: its existing sessions, speakers, flyer, and meeting notes are retained.
+A dependency-free static site for GitHub Copilot Build Guilds. **NYC is the
+default**: its sessions, speakers, flyer, and meeting notes are retained.
 All Guilds share the layout, light/dark theme, session sorting, filters, and search.
 
 ## Build and preview
@@ -43,7 +43,7 @@ configuration and replace the example values (the example does not publish a sit
 ```
 
 All shown fields are required. `speakers: []`, `flyer: null`, and
-`notesFile: null` explicitly omit those elements; PennDOT content is never used
+`notesFile: null` explicitly omit those elements; NYC content is never used
 as a fallback. `sessionsFile` must exist but may be empty. Config errors, missing
 files, and unresolved template slots fail the build rather than publishing a
 partially configured site.
@@ -55,8 +55,7 @@ receive the Microsoft mark. A flyer is an object with `image` and descriptive
 and HTML, and do not use absolute paths, traversal segments, or remote image URLs.
 This keeps images working under GitHub Pages repository subpaths and offline.
 `publicUrl` must be HTTPS and is used in the invitation email. `schedule` supplies
-both the top banner and invitation; the old PennDOT invitation's conflicting
-"second Tuesday" wording is replaced with its existing Thursday banner schedule.
+both the top banner and invitation.
 Confirm the precise meeting time/time zone before publishing a new Guild.
 
 Create the referenced sessions HTML fragment. This uses the existing card markup:
@@ -93,7 +92,7 @@ node scripts/build.mjs your-guild
 ```
 
 Add your config, content, and assets to Git; do not edit generated output or
-replace the PennDOT config to add a different Guild.
+replace the NYC config to add a different Guild.
 
 ## Publish an individual site
 
@@ -102,7 +101,7 @@ Reuse this repository in the destination repository (or enable GitHub's
 
 1. Add the Guild config, content, and assets described above.
 2. Set the repository Actions variable `BUILD_GUILD` to its config ID, without
-   `.json`. Leaving it unset selects `penndot`.
+   `.json`. Leaving it unset selects `nyc`.
 3. Enable GitHub Pages with **GitHub Actions** as the source. Push to `main` or
    run **Deploy GitHub Pages** manually. If using another default branch, update
    the workflow's branch trigger.
@@ -116,4 +115,4 @@ time zone, speakers/headshots, flyer (if wanted), sessions, notes/resources,
 meeting links, destination GitHub owner/repository, and final public URL (including
 any custom domain). Publishing also requires repository write access and permission
 to enable Pages/Actions. Set `publicUrl` to that actual destination so invitations
-do not send visitors back to PennDOT.
+send visitors to the correct Guild.

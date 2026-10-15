@@ -1,0 +1,43 @@
+{
+  "name": "NYC Build Guild",
+  "description": "NYC Build Guild — a monthly community for developers and builders learning, sharing, and shipping with GitHub Copilot.",
+  "publicUrl": "https://mullis623.github.io/nyc-build-guild/",
+  "schedule": "Monthly",
+  "heroCopy": {
+    "intro": "A monthly forum for builders, engineers, and enthusiasts to ",
+    "emphasis": "learn, share, and ship with confidence",
+    "outro": " using GitHub Copilot."
+  },
+  "speakers": [
+    {
+      "name": "Kenedy Thorne",
+      "title": "Senior Solution Engineer",
+      "company": "Microsoft",
+      "image": "assets/kenedy-thorne.png"
+    },
+    {
+      "name": "Sebastian Kowalik",
+      "title": "Principal Solution Engineer",
+      "company": "Microsoft",
+      "image": "assets/sebastian.kowalik.jpg"
+    },
+    {
+      "name": "Shaun Mullis",
+      "title": "Senior Solution Engineer",
+      "company": "Microsoft",
+      "image": "assets/shaun.mullis.jpg"
+    },
+    {
+      "name": "Sundeep Hiranandaney",
+      "title": "Principal Solution Engineer",
+      "company": "Microsoft",
+      "image": "assets/sundeep.hiranandaney.jpg"
+    }
+  ],
+  "flyer": {
+    "image": "assets/build-guild-flyer.png",
+    "alt": "NYC Build Guild flyer"
+  },
+  "sessionsFile": "content/nyc-sessions.html",
+  "notesFile": "content/nyc-notes.html"
+}
